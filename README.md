@@ -7,7 +7,7 @@ The Simplest TCP room IM system made by **Netty**. Inspired by [**@WWS**](https:
 ## PackageT
 **PackageT** is a TCP communication packet structure of WWS-SOCKET that includes two parts: **Header** and **Body**. 
 
-Client use socket to create connection with **server** and then send packet based **PacketT** to it. Once server validates packet successfully, it will reply a packet back.
+Client use socket to create connection with **server** and then send packet based **PackageT** to it. Once server validates packet successfully, it will reply a packet back.
 
 ```
                               PackageT                                                                          
@@ -34,27 +34,27 @@ The header of packageT has fixed 20 bytes including 4 parts. `Message Type` has 
 
 ### Message Type
 
-|Name|Uint16|Request|
+|Name|Value(Uint16)|Is Request|
 |-----|-----|-----|
-|PING_MSG|0|√|
+|PING_MSG|0|✅|
 |PONG_MSG|1|
-|SET_NAME|2|√
+|SET_NAME|2|✅
 |SET_NAME_SUCCESS|3|
 |SET_NAME_FAILED|4|
-|GET_ROOM_LIST|5|√
+|GET_ROOM_LIST|5|✅
 |ROOM_LIST|6|
-|HOST_NEW_ROOM|7|√
+|HOST_NEW_ROOM|7|✅
 |HOST_ROOM_SUCCESS|8|
 |HOST_ROOM_FAILED|9|
-|CONNECT_ROOM|10|√
+|CONNECT_ROOM|10|✅
 |CONNECT_ROOM_SUCCESS|11|
 |CONNECT_ROOM_FAILED|12|
-|CHECK_ROOM_STATUS|13|√
+|CHECK_ROOM_STATUS|13|✅
 |ROOM_STATUS|14|
-|DISCONNECT_ROOM|15|√
+|DISCONNECT_ROOM|15|✅
 |DISCONNECT_ROOM_SUCCESS|16|
 |ROOM_MSG|17|
-|SEND_MSG|18|√
+|SEND_MSG|18|✅
 |SEND_MSG_SUCCESS|19|
 |SEND_MSG_FAILED|20|
 |ROOM_CLEAN_OUT|21|          
@@ -63,7 +63,7 @@ The header of packageT has fixed 20 bytes including 4 parts. `Message Type` has 
 The byte length of packet body, client/server should measure body before sending packet.
 
 ### Send Time
-Unix millisecond timestamp when the packet is sent.
+Unix millisecond timestamp when the packet sent.
 
 ### Hash
 Client generates a unique hash value before sending a packet and attach it to the header of packet. And then server should reply a packet with this hash in the header (except **ROOM_MSG** response type). 
@@ -82,7 +82,7 @@ Message Type: **PONG_MSG**
 
 |Body|Type|Description|
 |-----|-----|-----|
-|send time|Uint64|same as request packet|
+|send time|Uint64|same as send time of request packet|
 
 ## Set Name
 Set name for current user
